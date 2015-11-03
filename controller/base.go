@@ -25,8 +25,11 @@ func (this *base) Prepare() {
 		this.Data["isLogin"] = true
 	}
 
-	//访问统计 过滤掉files目录
+	//访问统计 过滤掉files目录,不统计localhost
 	go func(input *context.BeegoInput) {
+		if input.IP() == "127.0.0.1" || input.IP() == "localhost" {
+			return
+		}
 		path := input.Url()
 		if !strings.HasPrefix(path, "/files/") {
 			visitLog.AddVisitLog(input.IP(), path)
