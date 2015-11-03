@@ -1,0 +1,58 @@
+<!--<style>-->
+    <!--#sidebar {-->
+        <!--max-height: 88%;-->
+        <!--position: fixed;-->
+        <!--/*margin-top: 12px;*/-->
+        <!--top: 56px;-->
+        <!--/*right: 16px;*/-->
+        <!--overflow: hidden;-->
+        <!--background: #fff;-->
+        <!--z-index: 100;-->
+        <!--padding: 4px;-->
+        <!--border: 1px solid #ddd;-->
+    <!--}-->
+
+
+    <!--#sidebar:hover {-->
+        <!--overflow: auto;-->
+    <!--}-->
+
+    <!--#sidebar h1 {-->
+        <!--font-size: 16px;-->
+        <!--margin-bottom: 6px;-->
+    <!--}-->
+
+<!--</style>-->
+
+<div class="ui grid stackable center" style="width: 100%;padding-left: 2%">
+    <div class="thirteen wide column">
+            {{with $.topic}}
+            <input id="markdown" value="{{.Markdown}}" type="hidden">
+            {{set $ "Title" .Title}}
+            <div class="ui raised segment">
+                <h2 class="ui large header">
+                    {{.Title}}
+                    <div class="sub header" style="font-size: small">{{dateformat .CreateTime "2006-01-02 15:04:05"}} by {{.User.NickName}} · {{.PV}}次点击</div>
+                </h2>
+                {{if $.canModify}}
+                <button class="ui tiny button alignright" style="position: absolute;right: 2px;top: 0px;" onclick="window.open('/console/modifyTopic/{{.Id}}','_self')">Modify</button>
+                {{end}}
+                <div>
+                    <div class="htmlContent">
+                        {{str2html .HtmlContent}}
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <a class="ui tag label" style="margin: 2px 6px 2px 6px" href="/tag/{{.Tags}}">{{.Tags}}</a>
+            </div>
+            <nav id="pagination">
+                {{with .Previous}}
+                <a href="/topic/{{.Id}}" class="alignleft prev">上一篇：{{.Title}}</a>
+                {{end}}
+                {{with .Next}}
+                <a href="/topic/{{.Id}}" class="alignright next">下一篇：{{.Title}}</a>
+                {{end}}
+            </nav>
+            {{end}}
+    </div>
+</div>
