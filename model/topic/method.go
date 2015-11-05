@@ -61,7 +61,7 @@ func GetTopicById(id int64) *Topic {
 
 func AddPV(id int64) {
 	o := orm.NewOrm()
-	o.QueryTable("Topic").Filter("Id", id).Update(orm.Params{"PV":orm.ColValue(orm.ColAdd, 1)})
+	o.QueryTable("Topic").Filter("Id", id).Update(orm.Params{"PV":orm.ColValue(orm.Col_Add, 1)})
 }
 
 func ModifyTopic(id int64, u *user.User, title, tags, abstract, markdown, htmlContent, hash string) error {
