@@ -9,12 +9,17 @@ import (
 	"github.com/astaxie/beego/context"
 )
 
+//拦截没有鉴权的请求
 func setFilter() {
 	beego.InsertFilter("/console/*", beego.BeforeRouter, userFilter)
 }
 
 var userFilter = func(ctx *context.Context) {
-	if ctx.Input.Method() == "GET" && ctx.Input.Session("user") == nil {
-		ctx.Redirect(302, "/login")
+	if ctx.Input.Session("user") == nil {
+		if ctx.Input.Method() == "GET" {
+			ctx.Redirect(302, "/login")
+		}else {
+			ctx.Abort(401, "401")
+		}
 	}
 }

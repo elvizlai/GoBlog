@@ -22,5 +22,6 @@ func init() {
 	beego.Router("/register", &console.UserController{}, "get,post:Register")
 	beego.Router("/console/newTopic", &console.TopicController{}, "get,post:NewTopic")
 	beego.Router("/console/modifyTopic/:id([0-9]+)", &console.TopicController{}, "get,post:ModifyTopic")
+	beego.Router("/console/map", &console.MapController{})
 	beego.Router("/upload", &console.FileController{}, "post:Upload")
 }
