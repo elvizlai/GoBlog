@@ -1,9 +1,9 @@
 require.config({
     baseUrl: "/static/",
     paths: {
-        jquery: "js/lib/jquery-2.1.4.min",
-        semantic: "semantic/js/semantic.min",
-        validate: "js/lib/jquery.validate-1.13.1.min",
+        jquery: "//cdn.bootcss.com/jquery/2.1.4/jquery.min",
+        semantic: "//cdn.bootcss.com/semantic-ui/2.1.5/semantic.min",
+        validate: "//cdn.bootcss.com/jquery-validate/1.14.0/jquery.validate.min",
         marked: "editormd/marked.min",
         prettify: "editormd/prettify.min",
         raphael: "editormd/raphael.min",

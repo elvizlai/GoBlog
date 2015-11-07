@@ -9,16 +9,16 @@ define([], function () {
         "validate",
         "semantic",
         "/static/js/console.js",
-        "/static/plugins/link-dialog/link-dialog.js",
-        "/static/plugins/reference-link-dialog/reference-link-dialog.js",
-        "/static/plugins/image-dialog/image-dialog.js",
-        "/static/plugins/code-block-dialog/code-block-dialog.js",
-        "/static/plugins/table-dialog/table-dialog.js",
-        "/static/plugins/emoji-dialog/emoji-dialog.js",
-        "/static/plugins/goto-line-dialog/goto-line-dialog.js",
-        "/static/plugins/help-dialog/help-dialog.js",
-        "/static/plugins/html-entities-dialog/html-entities-dialog.js",
-        "/static/plugins/preformatted-text-dialog/preformatted-text-dialog.js"
+        "/static/editormd/plugins/link-dialog/link-dialog.js",
+        "/static/editormd/plugins/reference-link-dialog/reference-link-dialog.js",
+        "/static/editormd/plugins/image-dialog/image-dialog.js",
+        "/static/editormd/plugins/code-block-dialog/code-block-dialog.js",
+        "/static/editormd/plugins/table-dialog/table-dialog.js",
+        "/static/editormd/plugins/emoji-dialog/emoji-dialog.js",
+        "/static/editormd/plugins/goto-line-dialog/goto-line-dialog.js",
+        "/static/editormd/plugins/help-dialog/help-dialog.js",
+        "/static/editormd/plugins/html-entities-dialog/html-entities-dialog.js",
+        "/static/editormd/plugins/preformatted-text-dialog/preformatted-text-dialog.js"
     ];
 
     require(deps, function ($, editormd) {
