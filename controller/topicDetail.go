@@ -6,7 +6,6 @@
 package controller
 import (
 	"github.com/ElvizLai/Blog/model/topic"
-	"strconv"
 )
 
 type TopicDetail struct {
@@ -16,7 +15,7 @@ type TopicDetail struct {
 func (this *TopicDetail) TopicDetail() {
 	this.TplNames = "topicDetail.html"
 
-	id, _ := strconv.ParseInt(this.Ctx.Input.Param(":id"), 10, 64)
+	id:= this.Ctx.Input.Param(":id")
 	tp := topic.GetTopicById(id)
 
 	if tp == nil {

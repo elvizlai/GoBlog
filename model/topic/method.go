@@ -35,7 +35,7 @@ func TopicList(page int) ([]Topic, int64) {
 	return topics, totalNum
 }
 
-func GetTopicById(id int64) *Topic {
+func GetTopicById(id interface{}) *Topic {
 	o := orm.NewOrm()
 	topic := &Topic{}
 	if o.QueryTable("Topic").Filter("Id", id).RelatedSel().One(topic) != nil {
@@ -59,7 +59,7 @@ func GetTopicById(id int64) *Topic {
 	return topic
 }
 
-func AddPV(id int64) {
+func AddPV(id interface{}) {
 	o := orm.NewOrm()
 	o.QueryTable("Topic").Filter("Id", id).Update(orm.Params{"PV":orm.ColValue(orm.Col_Add, 1)})
 }
