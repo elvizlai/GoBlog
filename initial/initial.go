@@ -9,6 +9,7 @@ import (
 	"github.com/ElvizLai/Blog/enum"
 	_ "github.com/ElvizLai/Blog/router"
 	_ "github.com/ElvizLai/Blog/model"
+	_ "github.com/ElvizLai/Blog/backup"
 	"github.com/astaxie/beego"
 )
 
@@ -16,7 +17,6 @@ func init() {
 	beego.SessionOn = true
 	beego.SessionName = "token"
 	beego.CopyRequestBody = true
-
 
 	//setting Logger
 	setLogger()
