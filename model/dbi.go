@@ -15,17 +15,17 @@ import (
 )
 
 func init() {
-	if err := orm.RegisterDataBase("default", "sqlite3", enum.CONST.DBNAME, 50); err != nil {
-		panic(err)
-	}
-
 	if beego.RunMode != "prod" {
 		orm.Debug = true
+	}
+
+	if err := orm.RegisterDataBase("default", "sqlite3", enum.CONST.DBNAME, 50); err != nil {
+		panic(err)
 	}
 
 	orm.RegisterModel(new(user.User))
 	orm.RegisterModel(new(topic.Topic))
 	orm.RegisterModel(new(visitLog.VisitLog))
 
-	orm.RunSyncdb("default", false, true)
+	orm.RunSyncdb("default", false, false)
 }

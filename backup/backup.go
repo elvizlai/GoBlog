@@ -76,7 +76,7 @@ func backUp() {
 		return
 	}
 
-	if err := filepath.Walk(enum.CONST.FILEPATH, walk); err != nil {
+	if err := filepath.Walk(enum.CONST.UPLOADPATH, walk); err != nil {
 		beego.Error(err)
 		return
 	}

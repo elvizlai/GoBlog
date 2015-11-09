@@ -12,17 +12,17 @@ import (
 var CONST *c
 
 type c struct {
-	DBNAME   string
-	PERPAGE  int
-	TIMEZONE *time.Location
-	FILEPATH string
+	DBNAME     string
+	PERPAGE    int
+	TIMEZONE   *time.Location
+	UPLOADPATH string
 }
 
 func init() {
 	var err error
 	CONST = new(c)
 	CONST.DBNAME = "data.sqlite"
-	CONST.FILEPATH = "files"
+	CONST.UPLOADPATH = "files"
 	CONST.PERPAGE = 10//todo read from config
 
 	CONST.TIMEZONE, err = time.LoadLocation(beego.AppConfig.String("TimeZone"))

@@ -26,5 +26,5 @@ _testmain.go
 *.prof
 
 data.sqlite
-log
+logs
 files

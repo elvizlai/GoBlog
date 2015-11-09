@@ -24,7 +24,7 @@ func (this *FileController) Upload() {
 		defer f.Close()
 		data, _ := ioutil.ReadAll(f)
 
-		filePath := enum.CONST.FILEPATH + "/" + fmt.Sprint(this.CurrentUser.Id) + "/"
+		filePath := enum.CONST.UPLOADPATH + "/" + fmt.Sprint(this.CurrentUser.Id) + "/"
 		os.MkdirAll(filePath, os.ModePerm)
 
 		ioutil.WriteFile(filePath + header.Filename, data, os.ModePerm)

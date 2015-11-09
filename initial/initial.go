@@ -5,11 +5,11 @@
 
 package initial
 import (
+	_ "github.com/ElvizLai/Blog/backup"
+	_ "github.com/ElvizLai/Blog/model"
+	_ "github.com/ElvizLai/Blog/router"
 	"os"
 	"github.com/ElvizLai/Blog/enum"
-	_ "github.com/ElvizLai/Blog/router"
-	_ "github.com/ElvizLai/Blog/model"
-	_ "github.com/ElvizLai/Blog/backup"
 	"github.com/astaxie/beego"
 )
 
@@ -28,8 +28,8 @@ func init() {
 	//remove sqlite journal
 	os.Remove(enum.CONST.DBNAME + "-journal")
 
-	//create file
-	os.Mkdir(enum.CONST.FILEPATH, os.ModePerm)
+	//create files dir for upload
+	os.Mkdir(enum.CONST.UPLOADPATH, os.ModePerm)
 
 	//adding function fot html template
 	registerFunc()

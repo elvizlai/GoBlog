@@ -15,6 +15,7 @@ func AddVisitLog(ip, path string) {
 	vl := &VisitLog{Ip:ip, Path:path, Feq:1}
 
 	o := orm.NewOrm()
+
 	//已存在
 	if o.Read(vl, "Ip", "Path") == nil {
 		//更新feq+1

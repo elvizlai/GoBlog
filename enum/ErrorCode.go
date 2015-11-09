@@ -22,6 +22,7 @@ type respCode struct {
 	BadRequest        *Code
 	UnAuthorized      *Code
 	NotFound          *Code
+	Conflict          *Code
 }
 
 func init() {
@@ -36,6 +37,7 @@ func init() {
 	RespCode.BadRequest = &Code{400, "BadRequest"}
 	RespCode.UnAuthorized = &Code{401, "UnAuthorized"}
 	RespCode.NotFound = &Code{404, "NotFound"}
+	RespCode.Conflict = &Code{409, "Conflict"}
 }
 
 func (c Code)Str() string {

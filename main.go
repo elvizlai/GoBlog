@@ -11,6 +11,5 @@ import (
 
 func main() {
 	beego.Info(beego.VERSION)
-
 	beego.Run()
 }
