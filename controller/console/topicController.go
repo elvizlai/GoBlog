@@ -7,10 +7,8 @@ package console
 import (
 	"github.com/ElvizLai/Blog/enum"
 	"github.com/ElvizLai/Blog/model/topic"
-	"github.com/ElvizLai/Blog/model/user"
 	"strings"
 	"regexp"
-	"strconv"
 	"fmt"
 )
 
@@ -40,28 +38,27 @@ func (this *TopicController) NewTopic() {
 	htmlContent := req.Get("htmlContent").MustString()
 	abstract := getAbstract(htmlContent)
 
-	u, _ := this.GetSession("user").(*user.User)
-
-	err := topic.AddTopic(u, title, tags, abstract, markdown, htmlContent)//.AddArticle(this.CurrentUser.Id, title, tags, markdown, htmlContent)
+	err := topic.AddTopic(this.CurrentUser, title, tags, abstract, markdown, htmlContent)
 
 	if err == nil {
 		this.RespJson(enum.RespCode.OK, nil)
 	}else {
-		//this.RespJson(enum.UNKNOWN, err)
+		this.RespJson(enum.RespCode.Conflict, err)
 	}
 }
 
 func (this *TopicController) ModifyTopic() {
-	id, _ := strconv.ParseInt(this.Ctx.Input.Param(":id"), 10, 64)
-	u, _ := this.GetSession("user").(*user.User)
+	idStr := this.Ctx.Input.Param(":id")
+
 	if this.Ctx.Input.Method() == "GET" {
 		this.TplNames = "console/modify_topic.html"
-		t := topic.GetTopicById(id)
+		t := topic.GetTopicById(idStr)
 		if t == nil {
 			this.Abort("404")
 		}else {
-			if t.User.Id != u.Id {
-				this.Redirect("/topic/" + fmt.Sprint(id), 302)
+			fmt.Println(this.CurrentUser)
+			if t.User.Id != this.CurrentUser.Id {
+				this.Redirect("/topic/" + idStr, 302)
 				return
 			}
 			this.Data["topic"] = t
@@ -85,9 +82,9 @@ func (this *TopicController) ModifyTopic() {
 		htmlContent := req.Get("htmlContent").MustString()
 		abstract := getAbstract(htmlContent)
 
-		err = topic.ModifyTopic(id, u, title, tags, abstract, markdown, htmlContent, hash)
+		err = topic.ModifyTopic(idStr, this.CurrentUser, title, tags, abstract, markdown, htmlContent, hash)
 	}else if method == "delete" {
-		err = topic.DeleteTopic(id,u)
+		err = topic.DeleteTopic(idStr, this.CurrentUser)
 	}else {
 		this.RespJson(enum.RespCode.BadRequest, nil)
 	}
@@ -95,7 +92,7 @@ func (this *TopicController) ModifyTopic() {
 	if err == nil {
 		this.RespJson(enum.RespCode.OK, nil)
 	}else {
-		this.RespJson(enum.RespCode.BadRequest, err)
+		this.RespJson(enum.RespCode.Conflict, err)
 	}
 
 }

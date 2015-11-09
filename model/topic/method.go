@@ -10,8 +10,8 @@ import (
 	"github.com/ElvizLai/Blog/enum"
 	"github.com/ElvizLai/Blog/util"
 	"fmt"
-	"github.com/juju/errors"
 	"time"
+	"errors"
 )
 
 func AddTopic(user *user.User, title, tags, abstract, markdown, htmlContent string) error {
@@ -64,17 +64,17 @@ func AddPV(id interface{}) {
 	o.QueryTable("Topic").Filter("Id", id).Update(orm.Params{"PV":orm.ColValue(orm.Col_Add, 1)})
 }
 
-func ModifyTopic(id int64, u *user.User, title, tags, abstract, markdown, htmlContent, hash string) error {
+func ModifyTopic(id interface{}, u *user.User, title, tags, abstract, markdown, htmlContent, hash string) error {
 	//1、判断是否真的为该用户 2、hash值是否匹配
 	o := orm.NewOrm()
 	t := &Topic{}
 	o.QueryTable("Topic").Filter("Id", id).RelatedSel().One(t)
 	if t.User.Id != u.Id {
-		return errors.New("aaaaa")
+		return errors.New(enum.RespCode.UnAuthorized.Str())
 	}
 
 	if t.Hash != hash {
-		return errors.New("bbbbb")
+		return errors.New(enum.RespCode.Conflict.Str())
 	}
 
 	t.Title = title
@@ -88,14 +88,16 @@ func ModifyTopic(id int64, u *user.User, title, tags, abstract, markdown, htmlCo
 	return err
 }
 
-func DeleteTopic(id int64, u *user.User) error {
+func DeleteTopic(id interface{}, u *user.User) error {
 	o := orm.NewOrm()
 	t := &Topic{}
 	o.QueryTable("Topic").Filter("Id", id).RelatedSel().One(t)
 	if t.User.Id != u.Id {
-		return errors.New("aaaaa")
+		return errors.New(enum.RespCode.UnAuthorized.Str())
 	}
 
 	_, err := o.Delete(t)
+
+	//todo backup
 	return err
 }

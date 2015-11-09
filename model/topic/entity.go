@@ -12,15 +12,22 @@ import (
 type Topic struct {
 	Id          int64
 	User        *user.User `orm:"rel(fk)"`
-	Title       string                    //标题
-	Tags        string                    //标签，使用符号;分隔
-	Abstract    string `orm:"type(text)"` //摘要
-	Markdown    string `orm:"type(text)"` //markdown正文
-	HtmlContent string `orm:"type(text)"` //html正文
-	PV          int64 `orm:"default(1)"`  //浏览量
+	Title       string                    //topic title
+	Tags        string                    //tags using ; split
+	Abstract    string `orm:"type(text)"` //str before <!--more-->
+	Markdown    string `orm:"type(text)"` //markdown
+	HtmlContent string `orm:"type(text)"` //html
+	PV          int64 `orm:"default(1)"`  //read count
 	CreateTime  time.Time `orm:"auto_now_add;type(datetime)"`
 	UpdateTime  time.Time `orm:"null"`
 	Previous    *Topic `orm:"-"`
 	Next        *Topic `orm:"-"`
-	Hash        string                    //用于校验非法修改
+	Hash        string
+}
+
+//Ip与Path的联合唯一索引
+func (u *Topic) TableUnique() [][]string {
+	return [][]string{
+		[]string{"Title", "Hash"},
+	}
 }

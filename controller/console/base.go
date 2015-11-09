@@ -18,13 +18,9 @@ type base struct {
 
 func (this *base) Prepare() {
 	this.Layout = "console/Layout.html"
-	//过滤非法请求
-	if this.Ctx.Input.Method() == "POST" && this.Ctx.Request.RequestURI != "/login" && this.Ctx.Request.RequestURI != "/register" {
-		if s := this.GetSession("user"); s == nil {
-			this.Abort("401")
-		}else {
-			this.CurrentUser = s.(*user.User)
-		}
+	//get current user from session
+	if s := this.GetSession("user"); s != nil {
+		this.CurrentUser = s.(*user.User)
 	}
 }
 
