@@ -14,7 +14,9 @@
                 </div>
             </div>
             <div class="ui divider"></div>
-            <a class="ui tiny tag label" style="margin: 2px 5px 2px 5px" href="/tag/{{.Tags}}">{{.Tags}}</a>
+            {{range str2slice .Tags}}
+                <a class="ui tiny tag label" style="margin: 2px 5px 2px 5px" href="/tag/{{.}}">{{.}}</a>
+            {{end}}
         </div>
         {{end}}
         {{template "base/paginator.html" $}}

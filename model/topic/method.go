@@ -21,12 +21,25 @@ func AddTopic(user *user.User, title, tags, abstract, markdown, htmlContent stri
 	return err
 }
 
-func TopicList(page int) ([]Topic, int64) {
+func GetTopicList(page int) ([]Topic, int64) {
 	o := orm.NewOrm()
 	topics := []Topic{}
 
 	totalNum, _ := o.QueryTable("Topic").Count()
 	o.QueryTable("Topic").OrderBy("-CreateTime").Offset(enum.CONST.PERPAGE * (page - 1)).Limit(enum.CONST.PERPAGE).All(&topics)
+
+	for i, l := 0, len(topics); i < l; i++ {
+		topics[i].CreateTime = topics[i].CreateTime.In(enum.CONST.TIMEZONE)
+	}
+
+	return topics, totalNum
+}
+
+func GetTopicListByTag(page int, tag string) ([]Topic, int64) {
+	o := orm.NewOrm()
+	topics := []Topic{}
+	totalNum, _ := o.QueryTable("Topic").Filter("tags__icontains", tag).Count()
+	o.QueryTable("Topic").Filter("tags__icontains", tag).OrderBy("-CreateTime").Offset(enum.CONST.PERPAGE * (page - 1)).Limit(enum.CONST.PERPAGE).All(&topics)
 
 	for i, l := 0, len(topics); i < l; i++ {
 		topics[i].CreateTime = topics[i].CreateTime.In(enum.CONST.TIMEZONE)

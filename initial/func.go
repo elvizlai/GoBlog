@@ -12,8 +12,9 @@ import (
 	"fmt"
 )
 
-func registerFunc()  {
+func registerFunc() {
 	beego.AddFuncMap("slice2str", slice2str)
+	beego.AddFuncMap("str2slice", str2slice)
 	beego.AddFuncMap("compare", compare)
 	beego.AddFuncMap("set", set)
 }
@@ -29,6 +30,10 @@ func set(renderArgs map[interface{}]interface{}, key string, value interface{}) 
 
 func slice2str(slice []string) template.JS {
 	return template.JS(strings.Join(slice, ";"))
+}
+
+func str2slice(str string) []string {
+	return strings.Split(str, ";")
 }
 
 func compare(t1, t2 time.Time) template.JS {

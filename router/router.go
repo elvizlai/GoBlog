@@ -13,8 +13,9 @@ import (
 
 func init() {
 	//for all visitors
-	beego.Router("/", &controller.TopicList{}, "get:TopicList")
-	beego.Router("/topic/:id([0-9]+)", &controller.TopicDetail{}, "get:TopicDetail")
+	beego.Router("/", &controller.TopicController{}, "get:TopicList")
+	beego.Router("/topic/:id([0-9]+)", &controller.TopicController{}, "get:TopicDetail")
+	beego.Router("/tag/:tag", &controller.TagController{}, "get:TopicList")
 	beego.Router("/archives", &controller.Archives{})
 	beego.Router("/about", &controller.About{})
 	beego.Router("/" + enum.CONST.UPLOADPATH + "/:id([0-9]+)/*", &controller.FileHandler{})
